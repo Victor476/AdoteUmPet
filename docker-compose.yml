@@ -31,7 +31,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/adoteumpet_bd
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
       SPRING_PROFILES_ACTIVE: docker
     ports:
       - "8090:8080"

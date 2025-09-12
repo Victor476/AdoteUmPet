@@ -7,18 +7,19 @@ import com.adoteumpet.adoteumpetapi.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.context.annotation.Profile;
 
 import java.math.BigDecimal;
 
 /**
  * Configuração para carregar dados de exemplo no banco de dados.
- * Executa apenas em perfis de desenvolvimento e teste.
- * Para usar dados reais, descomente a anotação @Profile ou remova esta classe.
+ * DESABILITADA - Agora usamos Flyway para gerenciamento de dados.
+ * Para habilitar, descomente a anotação @Configuration e @Profile.
+ * Para usar dados reais, crie um arquivo de migração SQL no Flyway.
  */
-@Configuration
-@Profile({"dev", "test"}) // Removido "default" para não executar por padrão
+// @Configuration
+// @Profile({"dev", "test"}) // Comentado para desabilitar o carregamento automático
 public class DataLoader {
 
     @Bean
