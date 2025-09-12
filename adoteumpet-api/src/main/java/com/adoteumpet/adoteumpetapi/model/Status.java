@@ -2,12 +2,11 @@ package com.adoteumpet.adoteumpetapi.model;
 
 /**
  * Enum que representa os status possíveis de um pet no sistema.
+ * Apenas disponível para adoção e adotado são suportados.
  */
 public enum Status {
     AVAILABLE("Disponível para adoção"),
-    ADOPTED("Adotado"),
-    PENDING("Adoção pendente"),
-    UNAVAILABLE("Indisponível");
+    ADOPTED("Adotado");
 
     private final String displayName;
 

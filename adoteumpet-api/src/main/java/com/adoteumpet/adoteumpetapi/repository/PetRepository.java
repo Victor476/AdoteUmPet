@@ -63,6 +63,13 @@ public interface PetRepository extends JpaRepository<Pet, UUID> {
     List<Pet> findByShelterCityAndStatus(String shelterCity, Status status);
 
     /**
+     * Busca pets por nome.
+     * @param name o nome do pet
+     * @return lista de pets com o nome especificado
+     */
+    List<Pet> findByName(String name);
+
+    /**
      * Busca pets por faixa etária.
      * @param minAge idade mínima
      * @param maxAge idade máxima
