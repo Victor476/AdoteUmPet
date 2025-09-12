@@ -1,0 +1,151 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  JAVA_VERSION: '21'
+  NODE_VERSION: '18'
+
+jobs:
+  backend:
+    name: Backend CI (Java/Spring Boot)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./adoteumpet-api
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: adoteumpet_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+    
+    - name: ☕ Setup Java ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+    
+    - name: 📦 Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    
+    - name: 🔍 Verificar se Maven Wrapper é válido
+      run: |
+        if [ -f "mvnw" ]; then
+          chmod +x mvnw
+          echo "Maven Wrapper encontrado e executável"
+        else
+          echo "Maven Wrapper não encontrado"
+          exit 1
+        fi
+    
+    - name: 🧹 Limpar diretório target
+      run: ./mvnw clean
+    
+    - name: 🔧 Compilar projeto
+      run: ./mvnw compile -DskipTests
+    
+    - name: 🧪 Executar testes unitários
+      run: ./mvnw test
+      env:
+        SPRING_PROFILES_ACTIVE: test
+        SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb
+        SPRING_DATASOURCE_USERNAME: sa
+        SPRING_DATASOURCE_PASSWORD: password
+    
+    - name: 🏗️ Build final do projeto
+      run: ./mvnw package -DskipTests
+    
+    - name: 📋 Upload dos artefatos de teste
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: backend-test-results
+        path: |
+          adoteumpet-api/target/surefire-reports/
+          adoteumpet-api/target/site/jacoco/
+        retention-days: 5
+
+  frontend:
+    name: Frontend CI (Node.js/Next.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./adoteumpet-frontend
+    
+    # Frontend job (desabilitado por enquanto até implementação completa)
+    if: false
+    
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+    
+    - name: 🟢 Setup Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: adoteumpet-frontend/package-lock.json
+    
+    - name: 📦 Instalar dependências
+      run: npm ci
+    
+    - name: 🔍 Executar lint
+      run: npm run lint
+    
+    - name: 🧪 Executar testes
+      run: npm run test -- --coverage --watchAll=false --passWithNoTests
+      env:
+        CI: true
+    
+    - name: 🏗️ Build do projeto
+      run: npm run build
+    
+    - name: 📋 Upload dos artefatos de teste
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: frontend-test-results
+        path: |
+          adoteumpet-frontend/coverage/
+          adoteumpet-frontend/.next/
+        retention-days: 5
+
+  # Job para verificar se pelo menos o backend passou
+  check-required:
+    name: ✅ Verificação obrigatória
+    runs-on: ubuntu-latest
+    needs: [backend]
+    if: always()
+    
+    steps:
+    - name: 🎯 Verificar se jobs obrigatórios passaram
+      run: |
+        if [[ "${{ needs.backend.result }}" == "success" ]]; then
+          echo "✅ Backend passou - Pipeline aprovado!"
+          exit 0
+        else
+          echo "❌ Backend falhou - Pipeline reprovado!"
+          exit 1
+        fi
