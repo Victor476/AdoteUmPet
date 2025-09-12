@@ -1,9 +1,11 @@
 package com.adoteumpet.adoteumpetapi.controller;
 
+import com.adoteumpet.adoteumpetapi.dto.PetCreateDTO;
 import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
 import com.adoteumpet.adoteumpetapi.model.Status;
 import com.adoteumpet.adoteumpetapi.service.PetService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +29,35 @@ public class PetController {
 
     /**
      * Endpoint para criar um novo pet.
-     * @param pet os dados do pet a ser criado
+     * @param petCreateDTO os dados do pet a ser criado
      * @return o pet criado com status 201
      */
     @PostMapping
-    public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
+    public ResponseEntity<Pet> createPet(@Valid @RequestBody PetCreateDTO petCreateDTO) {
+        Pet pet = convertToEntity(petCreateDTO);
         Pet savedPet = petService.savePet(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPet);
+    }
+
+    /**
+     * Converte um DTO de criação para uma entidade Pet.
+     * @param dto o DTO com os dados do pet
+     * @return a entidade Pet convertida
+     */
+    private Pet convertToEntity(PetCreateDTO dto) {
+        Pet pet = new Pet();
+        pet.setName(dto.getName());
+        pet.setSpecies(dto.getSpecies());
+        pet.setBreed(dto.getBreed());
+        pet.setAgeYears(dto.getAgeYears());
+        pet.setShelterCity(dto.getShelterCity());
+        pet.setShelterLat(dto.getShelterLat());
+        pet.setShelterLng(dto.getShelterLng());
+        
+        // Define status como AVAILABLE por padrão se não especificado
+        pet.setStatus(dto.getStatus() != null ? dto.getStatus() : Status.AVAILABLE);
+        
+        return pet;
     }
 
     /**

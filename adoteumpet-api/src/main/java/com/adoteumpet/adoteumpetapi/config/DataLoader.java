@@ -7,18 +7,19 @@ import com.adoteumpet.adoteumpetapi.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.context.annotation.Profile;
 
 import java.math.BigDecimal;
 
 /**
  * Configuração para carregar dados de exemplo no banco de dados.
- * Executa apenas em perfis de desenvolvimento e teste.
- * Para usar dados reais, descomente a anotação @Profile ou remova esta classe.
+ * DESABILITADA - Agora usamos Flyway para gerenciamento de dados.
+ * Para habilitar, descomente a anotação @Configuration e @Profile.
+ * Para usar dados reais, crie um arquivo de migração SQL no Flyway.
  */
-@Configuration
-@Profile({"dev", "test"}) // Removido "default" para não executar por padrão
+// @Configuration
+// @Profile({"dev", "test"}) // Comentado para desabilitar o carregamento automático
 public class DataLoader {
 
     @Bean
@@ -63,13 +64,13 @@ public class DataLoader {
             pet4.setShelterCity("Porto Alegre");
             pet4.setShelterLat(new BigDecimal("-30.0346471"));
             pet4.setShelterLng(new BigDecimal("-51.2176584"));
-            pet4.setStatus(Status.PENDING);
+            pet4.setStatus(Status.AVAILABLE);
 
             Pet pet5 = new Pet();
-            pet5.setName("Piu");
-            pet5.setSpecies(Species.BIRD);
-            pet5.setBreed("Canário");
-            pet5.setAgeYears(1);
+            pet5.setName("Max");
+            pet5.setSpecies(Species.DOG);
+            pet5.setBreed("Beagle");
+            pet5.setAgeYears(4);
             pet5.setShelterCity("Curitiba");
             pet5.setShelterLat(new BigDecimal("-25.4284700"));
             pet5.setShelterLng(new BigDecimal("-49.2733200"));

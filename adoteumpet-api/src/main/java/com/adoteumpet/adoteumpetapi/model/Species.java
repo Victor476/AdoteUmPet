@@ -2,15 +2,11 @@ package com.adoteumpet.adoteumpetapi.model;
 
 /**
  * Enum que representa as espécies de pets disponíveis no sistema.
+ * Apenas gatos e cachorros são suportados.
  */
 public enum Species {
     DOG("Cachorro"),
-    CAT("Gato"),
-    BIRD("Pássaro"),
-    RABBIT("Coelho"),
-    FISH("Peixe"),
-    HAMSTER("Hamster"),
-    OTHER("Outro");
+    CAT("Gato");
 
     private final String displayName;
 

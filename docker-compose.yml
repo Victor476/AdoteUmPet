@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: adoteumpet-postgres
+    environment:
+      POSTGRES_DB: adoteumpet_bd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - adoteumpet-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d adoteumpet_bd"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Spring Boot Backend Service
+  backend:
+    build:
+      context: ./adoteumpet-api
+      dockerfile: Dockerfile
+    container_name: adoteumpet-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/adoteumpet_bd
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8090:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - adoteumpet-network
+    restart: unless-stopped
+
+  # Next.js Frontend Service
+  frontend:
+    build:
+      context: ./adoteumpet-frontend
+      dockerfile: Dockerfile
+    container_name: adoteumpet-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - adoteumpet-network
+    restart: unless-stopped
+    # Volume mapping for hot-reloading during development
+    volumes:
+      - ./adoteumpet-frontend:/app
+      - /app/node_modules
+      - /app/.next
+
+# Named volumes for persistent data
+volumes:
+  postgres_data:
+    driver: local
+
+# Network for service communication
+networks:
+  adoteumpet-network:
+    driver: bridge
