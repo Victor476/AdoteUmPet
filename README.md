@@ -463,6 +463,82 @@ public static Specification<Pet> hasName(String name) {
 - **Testes de contrato** para validação de DTOs
 - **Cenários de erro** testados extensivamente
 
+### 💻 Desenvolvimento Local
+
+#### Pré-requisitos para Desenvolvimento
+
+- Java 21+
+- Node.js 18+
+- PostgreSQL 15+
+- Maven 3.8+
+
+#### Configuração do Backend
+
+```bash
+# Navegar para o diretório do backend
+cd adoteumpet-api
+
+# Instalar dependências
+./mvnw clean install
+
+# Configurar banco PostgreSQL local
+# Criar database: adoteumpet_bd
+# Usuário: postgres
+# Senha: postgres
+# Porta: 5432
+
+# Executar aplicação
+./mvnw spring-boot:run
+
+# Executar testes
+./mvnw test
+
+# Executar com coverage
+./mvnw clean test jacoco:report
+```
+
+#### Configuração do Frontend
+
+```bash
+# Navegar para o diretório do frontend
+cd adoteumpet-frontend
+
+# Instalar dependências
+npm install
+
+# Executar em modo desenvolvimento
+npm run dev
+
+# Build para produção
+npm run build
+
+# Executar build
+npm start
+```
+
+#### Variáveis de Ambiente
+
+**Backend** (application.properties):
+
+```properties
+# Banco de dados
+spring.datasource.url=jdbc:postgresql://localhost:5432/adoteumpet_bd
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+# Porta da aplicação
+server.port=8090
+
+# Profile ativo
+spring.profiles.active=dev
+```
+
+**Frontend** (.env.local):
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8090
+```
+
 ## 🗃️ Gerenciamento de Banco de Dados com Flyway
 
 ### Sobre o Flyway
