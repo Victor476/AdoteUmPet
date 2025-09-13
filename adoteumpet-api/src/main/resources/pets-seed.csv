@@ -1,0 +1,16 @@
+name,species,breed,age_years,shelter_city,shelter_lat,shelter_lng,status
+Buddy,DOG,Golden Retriever,3,São Paulo,-23.5505,-46.6333,AVAILABLE
+Mimi,CAT,Siamês,2,Rio de Janeiro,-22.9068,-43.1729,AVAILABLE
+Rex,DOG,Pastor Alemão,5,Belo Horizonte,-19.9191,-43.9386,ADOPTED
+Luna,CAT,,1,Porto Alegre,-30.0346,-51.2177,AVAILABLE
+Max,DOG,Labrador,4,Salvador,-12.9714,-38.5014,AVAILABLE
+Nala,CAT,Persa,3,Brasília,-15.8267,-47.9218,ADOPTED
+Thor,DOG,Rottweiler,6,Curitiba,-25.4284,-49.2733,AVAILABLE
+Bella,CAT,Angorá,2,Recife,-8.0476,-34.8770,AVAILABLE
+Charlie,DOG,Beagle,3,Fortaleza,-3.7172,-38.5433,AVAILABLE
+Whiskers,CAT,,4,Manaus,-3.1190,-60.0217,AVAILABLE
+Rocky,DOG,Bulldog,5,Belém,-1.4558,-48.5044,AVAILABLE
+Princess,CAT,Maine Coon,2,Goiânia,-16.6869,-49.2648,AVAILABLE
+Duke,DOG,Boxer,4,Guarulhos,-23.4628,-46.5333,ADOPTED
+Shadow,CAT,,3,Campinas,-22.9056,-47.0608,AVAILABLE
+Bolt,DOG,Border Collie,2,São Luís,-2.5387,-44.2825,AVAILABLE

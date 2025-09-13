@@ -35,7 +35,7 @@ import java.time.LocalDateTime;
 public class DataSeeder implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DataSeeder.class);
-    private static final String CSV_FILE_PATH = "data/pets-seed.csv";
+    private static final String CSV_FILE_PATH = "pets-seed.csv";
     private static final String SEED_MARKER_NAME = "SEED_MARKER_PET";
 
     @Autowired
