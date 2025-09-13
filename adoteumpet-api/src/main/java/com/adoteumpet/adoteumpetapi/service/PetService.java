@@ -1,5 +1,6 @@
 package com.adoteumpet.adoteumpetapi.service;
 
+import com.adoteumpet.adoteumpetapi.dto.PagedResponse;
 import com.adoteumpet.adoteumpetapi.exception.ResourceNotFoundException;
 import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
