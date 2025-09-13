@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
     "external.api.thecatapi.url=http://localhost:8089/v1/breeds"
 })
 @DisplayName("BreedController - Testes de Integração Simplificados")
-class BreedControllerSimpleIntegrationTest {
+class BreedControllerSimpleIT {
 
     @LocalServerPort
     private int port;
