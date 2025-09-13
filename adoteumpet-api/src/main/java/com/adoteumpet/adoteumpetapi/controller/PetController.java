@@ -1,5 +1,6 @@
 package com.adoteumpet.adoteumpetapi.controller;
 
+import com.adoteumpet.adoteumpetapi.dto.PagedResponse;
 import com.adoteumpet.adoteumpetapi.dto.PetCreateDTO;
 import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
@@ -7,6 +8,8 @@ import com.adoteumpet.adoteumpetapi.model.Status;
 import com.adoteumpet.adoteumpetapi.service.PetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,12 +64,25 @@ public class PetController {
     }
 
     /**
-     * Endpoint para buscar todos os pets.
-     * @return lista de todos os pets
+     * Endpoint para buscar pets com filtros, paginação e ordenação.
+     * @param name filtro por nome (opcional)
+     * @param species filtro por espécie (opcional)
+     * @param breed filtro por raça (opcional)
+     * @param shelterCity filtro por cidade do abrigo (opcional)
+     * @param status filtro por status (opcional)
+     * @param pageable configuração de paginação e ordenação (padrão: page=0, size=10, sort=name,asc)
+     * @return resposta paginada com os pets encontrados
      */
     @GetMapping
-    public ResponseEntity<List<Pet>> getAllPets() {
-        List<Pet> pets = petService.getAllPets();
+    public ResponseEntity<PagedResponse<Pet>> getPets(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Species species,
+            @RequestParam(required = false) String breed,
+            @RequestParam(required = false) String shelterCity,
+            @RequestParam(required = false) Status status,
+            @PageableDefault(size = 10, sort = "name") Pageable pageable) {
+        
+        PagedResponse<Pet> pets = petService.findPets(name, species, breed, shelterCity, status, pageable);
         return ResponseEntity.ok(pets);
     }
 
