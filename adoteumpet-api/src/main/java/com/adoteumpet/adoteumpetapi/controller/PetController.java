@@ -93,9 +93,8 @@ public class PetController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Pet> getPetById(@PathVariable UUID id) {
-        Optional<Pet> pet = petService.getPetById(id);
-        return pet.map(ResponseEntity::ok)
-                  .orElse(ResponseEntity.notFound().build());
+        Pet pet = petService.getPetById(id);
+        return ResponseEntity.ok(pet);
     }
 
     /**
@@ -163,9 +162,8 @@ public class PetController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Pet> updatePet(@PathVariable UUID id, @RequestBody Pet pet) {
-        Optional<Pet> updatedPet = petService.updatePet(id, pet);
-        return updatedPet.map(ResponseEntity::ok)
-                        .orElse(ResponseEntity.notFound().build());
+        Pet updatedPet = petService.updatePet(id, pet);
+        return ResponseEntity.ok(updatedPet);
     }
 
     /**

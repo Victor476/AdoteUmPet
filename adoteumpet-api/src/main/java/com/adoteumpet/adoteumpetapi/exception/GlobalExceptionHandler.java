@@ -107,45 +107,25 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Trata erros de conversão de parâmetros de query string (como enum inválido).
-     * @param ex exceção de conversão de tipo
-     * @return resposta com status 400
+     * Trata erros de recurso não encontrado.
+     * @param ex exceção de recurso não encontrado
+     * @param request requisição HTTP
+     * @return resposta com status 404
      */
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Map<String, Object>> handleTypeMismatchException(
-            MethodArgumentTypeMismatchException ex) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(
+            ResourceNotFoundException ex,
+            jakarta.servlet.http.HttpServletRequest request) {
         
         Map<String, Object> response = new HashMap<>();
-        String parameterName = ex.getName();
-        Object invalidValue = ex.getValue();
-        Class<?> targetType = ex.getRequiredType();
-        
-        String message;
-        if (targetType != null && targetType.isEnum()) {
-            // Trata especificamente erros de enum
-            Object[] enumConstants = targetType.getEnumConstants();
-            StringBuilder validValues = new StringBuilder();
-            
-            for (int i = 0; i < enumConstants.length; i++) {
-                validValues.append(enumConstants[i]);
-                if (i < enumConstants.length - 1) {
-                    validValues.append(", ");
-                }
-            }
-            
-            message = String.format("Valor inválido '%s' para o parâmetro '%s'. Valores válidos: %s", 
-                invalidValue, parameterName, validValues.toString());
-        } else {
-            message = String.format("Valor inválido '%s' para o parâmetro '%s'", 
-                invalidValue, parameterName);
-        }
         
         response.put("timestamp", LocalDateTime.now());
-        response.put("status", HttpStatus.BAD_REQUEST.value());
-        response.put("error", "Parâmetro inválido");
-        response.put("message", message);
+        response.put("status", HttpStatus.NOT_FOUND.value());
+        response.put("error", "Recurso não encontrado");
+        response.put("message", ex.getMessage());
+        response.put("path", request.getRequestURI());
         
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     /**

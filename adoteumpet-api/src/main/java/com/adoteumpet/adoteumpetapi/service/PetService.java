@@ -1,6 +1,6 @@
 package com.adoteumpet.adoteumpetapi.service;
 
-import com.adoteumpet.adoteumpetapi.dto.PagedResponse;
+import com.adoteumpet.adoteumpetapi.exception.ResourceNotFoundException;
 import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
 import com.adoteumpet.adoteumpetapi.model.Status;
@@ -88,10 +88,13 @@ public class PetService {
     /**
      * Busca um pet pelo ID.
      * @param id o ID do pet
-     * @return Optional contendo o pet se encontrado
+     * @return o pet encontrado
+     * @throws ResourceNotFoundException se o pet não for encontrado
      */
-    public Optional<Pet> getPetById(UUID id) {
-        return petRepository.findById(id);
+    public Pet getPetById(UUID id) {
+        return petRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                    String.format("Pet com ID '%s' não encontrado.", id)));
     }
 
     /**
@@ -143,35 +146,33 @@ public class PetService {
      * Atualiza um pet existente.
      * @param id o ID do pet a ser atualizado
      * @param updatedPet os dados atualizados do pet
-     * @return Optional contendo o pet atualizado se encontrado
+     * @return o pet atualizado
+     * @throws ResourceNotFoundException se o pet não for encontrado
      */
-    public Optional<Pet> updatePet(UUID id, Pet updatedPet) {
-        Optional<Pet> existingPet = petRepository.findById(id);
-        if (existingPet.isPresent()) {
-            Pet pet = existingPet.get();
-            pet.setName(updatedPet.getName());
-            pet.setSpecies(updatedPet.getSpecies());
-            pet.setBreed(updatedPet.getBreed());
-            pet.setAgeYears(updatedPet.getAgeYears());
-            pet.setShelterCity(updatedPet.getShelterCity());
-            pet.setShelterLat(updatedPet.getShelterLat());
-            pet.setShelterLng(updatedPet.getShelterLng());
-            pet.setStatus(updatedPet.getStatus());
-            return Optional.of(petRepository.save(pet));
-        }
-        return Optional.empty();
+    public Pet updatePet(UUID id, Pet updatedPet) {
+        Pet existingPet = getPetById(id); // Usa o método que já lança exceção
+        existingPet.setName(updatedPet.getName());
+        existingPet.setSpecies(updatedPet.getSpecies());
+        existingPet.setBreed(updatedPet.getBreed());
+        existingPet.setAgeYears(updatedPet.getAgeYears());
+        existingPet.setShelterCity(updatedPet.getShelterCity());
+        existingPet.setShelterLat(updatedPet.getShelterLat());
+        existingPet.setShelterLng(updatedPet.getShelterLng());
+        existingPet.setStatus(updatedPet.getStatus());
+        return petRepository.save(existingPet);
     }
 
     /**
      * Marca um pet como adotado.
      * @param id o ID do pet
-     * @return true se o pet foi encontrado e atualizado, false caso contrário
+     * @return true se o pet foi encontrado e atualizado, false se já estava adotado
+     * @throws ResourceNotFoundException se o pet não for encontrado
      */
     public boolean adoptPet(UUID id) {
-        Optional<Pet> pet = petRepository.findById(id);
-        if (pet.isPresent() && pet.get().getStatus() == Status.AVAILABLE) {
-            pet.get().setStatus(Status.ADOPTED);
-            petRepository.save(pet.get());
+        Pet pet = getPetById(id); // Usa o método que já lança exceção
+        if (pet.getStatus() == Status.AVAILABLE) {
+            pet.setStatus(Status.ADOPTED);
+            petRepository.save(pet);
             return true;
         }
         return false;
