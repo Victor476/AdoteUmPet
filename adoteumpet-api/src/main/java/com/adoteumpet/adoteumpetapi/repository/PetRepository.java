@@ -4,6 +4,7 @@ import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
 import com.adoteumpet.adoteumpetapi.model.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -13,10 +14,10 @@ import java.util.UUID;
 
 /**
  * Repositório JPA para gerenciar operações de banco de dados da entidade Pet.
- * Fornece métodos básicos CRUD e consultas customizadas.
+ * Fornece métodos básicos CRUD, consultas customizadas e suporte a Specifications para filtros dinâmicos.
  */
 @Repository
-public interface PetRepository extends JpaRepository<Pet, UUID> {
+public interface PetRepository extends JpaRepository<Pet, UUID>, JpaSpecificationExecutor<Pet> {
 
     /**
      * Busca pets por espécie.

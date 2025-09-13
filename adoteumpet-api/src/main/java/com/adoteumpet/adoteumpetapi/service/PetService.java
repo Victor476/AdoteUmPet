@@ -1,10 +1,15 @@
 package com.adoteumpet.adoteumpetapi.service;
 
+import com.adoteumpet.adoteumpetapi.dto.PagedResponse;
 import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
 import com.adoteumpet.adoteumpetapi.model.Status;
 import com.adoteumpet.adoteumpetapi.repository.PetRepository;
+import com.adoteumpet.adoteumpetapi.specification.PetSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +45,44 @@ public class PetService {
      */
     public List<Pet> getAllPets() {
         return petRepository.findAll();
+    }
+
+    /**
+     * Busca pets com filtros, paginação e ordenação.
+     * @param name filtro por nome (opcional)
+     * @param species filtro por espécie (opcional)
+     * @param breed filtro por raça (opcional)
+     * @param shelterCity filtro por cidade do abrigo (opcional)
+     * @param status filtro por status (opcional)
+     * @param pageable configuração de paginação e ordenação
+     * @return resposta paginada com os pets encontrados
+     */
+    public PagedResponse<Pet> findPets(String name, Species species, String breed, 
+                                      String shelterCity, Status status, Pageable pageable) {
+        Specification<Pet> spec = Specification.where(null);
+        
+        if (name != null && !name.trim().isEmpty()) {
+            spec = spec.and(PetSpecifications.hasName(name));
+        }
+        
+        if (species != null) {
+            spec = spec.and(PetSpecifications.hasSpecies(species));
+        }
+        
+        if (breed != null && !breed.trim().isEmpty()) {
+            spec = spec.and(PetSpecifications.hasBreed(breed));
+        }
+        
+        if (shelterCity != null && !shelterCity.trim().isEmpty()) {
+            spec = spec.and(PetSpecifications.hasShelterCity(shelterCity));
+        }
+        
+        if (status != null) {
+            spec = spec.and(PetSpecifications.hasStatus(status));
+        }
+        
+        Page<Pet> page = petRepository.findAll(spec, pageable);
+        return PagedResponse.from(page);
     }
 
     /**
