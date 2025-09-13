@@ -67,7 +67,7 @@ jobs:
       run: ./mvnw compile -DskipTests
     
     - name: 🧪 Executar testes unitários
-      run: ./mvnw test
+      run: ./mvnw test -Pci
       env:
         SPRING_PROFILES_ACTIVE: test
         SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb
