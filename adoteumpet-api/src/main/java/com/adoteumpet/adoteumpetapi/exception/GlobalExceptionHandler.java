@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
             MethodArgumentNotValidException ex) {
         
         Map<String, Object> response = new HashMap<>();
-        Map<String, String> errors = new HashMap<>();
+        java.util.List<Map<String, String>> details = new java.util.ArrayList<>();
         
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName;
@@ -46,14 +46,18 @@ public class GlobalExceptionHandler {
                 fieldName = error.getObjectName();
             }
             String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
+            
+            Map<String, String> errorDetail = new HashMap<>();
+            errorDetail.put("field", fieldName);
+            errorDetail.put("message", errorMessage);
+            details.add(errorDetail);
         });
         
         response.put("timestamp", LocalDateTime.now());
         response.put("status", HttpStatus.BAD_REQUEST.value());
-        response.put("error", "Erro de validação");
-        response.put("message", "Dados inválidos fornecidos");
-        response.put("errors", errors);
+        response.put("error", "Bad Request");
+        response.put("message", "Validation failed for 'Pet'.");
+        response.put("details", details);
         
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
