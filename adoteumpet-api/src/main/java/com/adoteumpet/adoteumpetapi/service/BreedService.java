@@ -6,6 +6,7 @@ import com.adoteumpet.adoteumpetapi.dto.external.DogApiBreed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -37,9 +38,11 @@ public class BreedService {
 
     /**
      * Busca raças por espécie com filtro opcional por nome
+     * Cache configurado com TTL de 10 minutos para otimizar chamadas às APIs externas
      */
+    @Cacheable(value = "breeds", key = "#species + '_' + (#nameFilter != null ? #nameFilter : 'all')")
     public List<BreedResponse> getBreedsBySpecies(String species, String nameFilter) {
-        logger.info("🔍 Buscando raças para species: {} com filtro: {}", species, nameFilter);
+        logger.info("🔍 Buscando raças para species: {} com filtro: {} (CACHE MISS - consultando API externa)", species, nameFilter);
 
         try {
             switch (species.toLowerCase()) {
