@@ -109,7 +109,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
@@ -134,7 +134,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
@@ -159,7 +159,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
@@ -184,7 +184,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
@@ -209,7 +209,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
@@ -234,7 +234,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
@@ -259,7 +259,7 @@ class PetControllerPostTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.details").exists());
     }
 
     @Test
