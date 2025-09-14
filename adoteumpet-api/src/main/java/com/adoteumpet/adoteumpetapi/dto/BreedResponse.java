@@ -2,6 +2,7 @@ package com.adoteumpet.adoteumpetapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * DTO padronizado para resposta de raças de animais
@@ -9,20 +10,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Para cães: energy_level será null (omitido do JSON)
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "Informações sobre uma raça de animal")
 public class BreedResponse {
 
+    @Schema(description = "Nome da raça", example = "Golden Retriever")
     @JsonProperty("name")
     private String name;
 
+    @Schema(description = "País de origem da raça", example = "Scotland")
     @JsonProperty("origin")
     private String origin;
 
+    @Schema(description = "Temperamento da raça", example = "Friendly, Intelligent, Devoted")
     @JsonProperty("temperament")
     private String temperament;
 
+    @Schema(description = "Nível de energia da raça (1-5, apenas para gatos)", example = "3", minimum = "1", maximum = "5")
     @JsonProperty("energy_level")
     private Integer energyLevel;
 
+    @Schema(description = "URL da imagem da raça", example = "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg")
     @JsonProperty("image_url")
     private String imageUrl;
 
