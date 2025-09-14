@@ -26,8 +26,7 @@ import java.util.List;
  */
 @Tag(name = "Breeds", description = "Operações relacionadas a raças de cães e gatos")
 @RestController
-@RequestMapping("/breeds")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/breeds")
 public class BreedController {
 
     private static final Logger logger = LoggerFactory.getLogger(BreedController.class);

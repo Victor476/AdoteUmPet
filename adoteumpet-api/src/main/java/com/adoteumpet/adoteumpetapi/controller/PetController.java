@@ -33,7 +33,6 @@ import java.util.UUID;
 @Tag(name = "Pets", description = "Operações relacionadas ao gerenciamento de pets para adoção")
 @RestController
 @RequestMapping("/api/pets")
-@CrossOrigin(origins = "*")
 public class PetController {
 
     @Autowired
