@@ -22,7 +22,7 @@ public class PetCreateDTO {
      * Nome do pet.
      * Campo obrigatório, não pode estar em branco.
      */
-    @NotBlank(message = "Nome é obrigatório")
+    @NotBlank(message = "O nome não pode ser vazio.")
     @Size(max = 100, message = "Nome deve ter no máximo 100 caracteres")
     private String name;
 
@@ -30,7 +30,7 @@ public class PetCreateDTO {
      * Espécie do pet.
      * Campo obrigatório.
      */
-    @NotNull(message = "Espécie é obrigatória")
+    @NotNull(message = "Espécie inválida. Valores válidos são 'dog' ou 'cat'.")
     private Species species;
 
     /**
@@ -44,7 +44,7 @@ public class PetCreateDTO {
      * Idade do pet em anos.
      * Deve ser maior ou igual a 0 e menor que 30 anos.
      */
-    @Min(value = 0, message = "Idade deve ser maior ou igual a 0")
+    @Min(value = 0, message = "A idade deve ser um número positivo.")
     @Max(value = 30, message = "Idade deve ser menor que 30 anos")
     private Integer ageYears;
 
