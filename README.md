@@ -22,15 +22,27 @@ A API estará disponível em: <http://localhost:8090/api/pets>
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Backend**: Spring Boot 3.5.5 (Java 21)
-- **Frontend**: Next.js 15.5.3 (TypeScript) *(em desenvolvimento)*
-- **Banco de Dados**: PostgreSQL 15
-- **Migrações**: Flyway
-- **Containerização**: Docker & Docker Compose
-- **ORM**: JPA/Hibernate
-- **Testes**: JUnit 5, Mockito, MockMvc
-- **Validação**: Bean Validation (Hibernate Validator)
-- **Documentação**: JavaDoc completo
+### **Backend**
+- **Spring Boot 3.5.5** (Java 21)
+- **PostgreSQL 15** - Banco de dados principal
+- **Flyway** - Migrações automáticas do banco
+- **JPA/Hibernate** - ORM para persistência
+- **JUnit 5 + Mockito** - Testes unitários e integração
+- **Bean Validation** - Validação declarativa
+
+### **Frontend**
+- **Next.js 15.5.3** - Framework React com TypeScript
+- **Tailwind CSS** - Framework CSS utilitário
+- **React Leaflet** - Mapas interativos para localização
+- **Chart.js** - Gráficos e visualizações de dados
+- **React Query** - Gerenciamento de estado do servidor
+
+### **Infraestrutura**
+- **Docker & Docker Compose** - Containerização completa
+- **H2 Database** - Banco em memória para desenvolvimento
+- **PostgreSQL** - Banco de produção
+- **Maven** - Gerenciamento de dependências Java
+- **npm/Node.js** - Gerenciamento de dependências frontend
 
 ## � Como Executar a Aplicação
 
@@ -227,7 +239,48 @@ sudo lsof -i :8080
 | **PostgreSQL** | `localhost:5433` | `localhost:5432` |
 | **Swagger UI** | <http://localhost:8090/swagger-ui.html> | <http://localhost:8080/swagger-ui.html> |
 
-## 📡 API REST - Endpoints Disponíveis
+## �️ Frontend - Funcionalidades Implementadas
+
+### **📊 Dashboard Estatístico**
+- **Métricas em tempo real**: Total de pets, disponíveis, adotados e idade média
+- **Gráfico de distribuição de idades**: Visualização por faixas etárias (0-1, 2-3, 4-6, 7+ anos)
+- **Cards interativos**: Informações organizadas em layout responsivo
+- **Atualização automática**: Dados sincronizados com filtros aplicados
+
+### **🗺️ Mapas Interativos**
+- **React Leaflet** integrado para visualização de localizações
+- **Marcadores dinâmicos** para cada abrigo de pets
+- **Popups informativos** com detalhes do pet e localização
+- **Coordenadas brasileiras** com dados realistas de cidades
+- **Carregamento dinâmico** para otimização de performance
+
+### **🔍 Sistema de Filtros Avançado**
+- **Busca em tempo real** por nome, espécie, raça e cidade
+- **Filtros combinados** com múltiplos critérios simultaneamente
+- **Interface intuitiva** com campos de busca organizados
+- **Resultados instantâneos** com debounce para performance
+
+### **📄 Listagem e Paginação**
+- **Tabela responsiva** com informações detalhadas dos pets
+- **Paginação completa** com navegação entre páginas
+- **Ordenação dinâmica** por diferentes campos
+- **Loading states** durante carregamento de dados
+
+### **📱 Design Responsivo**
+- **Tailwind CSS** para estilização consistente
+- **Layout adaptativo** para desktop, tablet e mobile
+- **Componentes reutilizáveis** organizados por funcionalidade
+- **UX/UI otimizada** com feedback visual adequado
+
+### **🔗 Integração Backend-Frontend**
+- **API calls** otimizadas com tratamento de erros
+- **Estados de loading** em todas as operações
+- **Sincronização em tempo real** entre filtros e dados
+- **Tipagem TypeScript** completa para type safety
+
+---
+
+## �📡 API REST - Endpoints Disponíveis
 
 A API AdoteUmPet fornece endpoints RESTful completos para gerenciar pets para adoção. Todos os endpoints retornam JSON e seguem as convenções REST.
 
@@ -634,12 +687,22 @@ adoteumpet-api/src/main/resources/
 ```
 
 ### Estrutura do CSV
-O arquivo `pets-seed.csv` deve seguir a estrutura:
+O arquivo `pets-seed.csv` contém **30 pets realistas** com dados brasileiros:
 ```csv
 name,species,breed,age_years,shelter_city,shelter_lat,shelter_lng,status
-Rex,DOG,Pastor Alemão,3,São Paulo,-23.5505200,-46.6333090,AVAILABLE
-Luna,CAT,Siamês,2,Rio de Janeiro,-22.9068467,-43.1728965,AVAILABLE
+Max,DOG,Labrador Retriever,3,São Paulo,-23.5505,-46.6333,AVAILABLE
+Luna,CAT,Persian,2,Rio de Janeiro,-22.9068,-43.1729,AVAILABLE
+Thor,DOG,German Shepherd,5,Belo Horizonte,-19.9167,-43.9345,AVAILABLE
+Mia,CAT,Siamese,1,Salvador,-12.9714,-38.5014,AVAILABLE
 ```
+
+**Características dos dados de seeding:**
+- ✅ **30 pets** com informações completas e realistas
+- ✅ **Nomes brasileiros** populares para pets (Max, Luna, Thor, Mia, etc.)
+- ✅ **Raças autênticas** compatíveis com APIs externas (Labrador, Persian, German Shepherd)
+- ✅ **Coordenadas reais** de cidades brasileiras (São Paulo, Rio, BH, Salvador, etc.)
+- ✅ **Idades variadas** (1-10 anos) para gráficos estatísticos
+- ✅ **Status diversificados** (Available, Adopted, Under Treatment)
 
 **Campos:**
 - `name`: Nome do pet (obrigatório)
@@ -824,23 +887,35 @@ curl "http://localhost:8090/api/pets?species=BIRD"
 - [x] **Documentação JavaDoc** completa
 - [x] **Dockerização** para fácil execução
 
-### 🚧 **Frontend (Em Desenvolvimento)**
+### ✅ **Frontend Completo e Funcional**
 
-- [ ] Interface React/Next.js para listagem de pets
-- [ ] Formulários para cadastro e edição
-- [ ] Sistema de filtros na UI
-- [ ] Integração com API backend
-- [ ] Design responsivo com Tailwind CSS
+- [x] **Interface Next.js 15.5.3** com TypeScript para listagem de pets
+- [x] **Sistema de filtros avançado** na UI com busca em tempo real
+- [x] **Paginação completa** com navegação entre páginas
+- [x] **Mapas interativos** com React Leaflet para localização dos abrigos
+- [x] **Gráficos estatísticos** com Chart.js para distribuição de idades
+- [x] **Dashboard de métricas** com estatísticas dos pets (total, disponíveis, adotados, idade média)
+- [x] **Páginas de detalhes** dinâmicas para cada pet com mapas integrados
+- [x] **Design responsivo** com Tailwind CSS e componentes modernos
+- [x] **Integração completa** com API backend e sincronização de dados
+- [x] **Loading states** e tratamento de erros profissional
+- [x] **Componentes reutilizáveis** organizados e tipados com TypeScript
+- [x] **Seed automático** com 30 pets realistas e dados brasileiros
 
 ### 🎯 **Diferenciais Técnicos**
 
+- **Full-stack completo** com backend e frontend integrados
 - **Arquitetura bem estruturada** seguindo boas práticas
 - **Código limpo** com responsabilidades bem definidas
-- **Performance otimizada** com índices de banco
-- **Tratamento de erros robusto** para melhor UX
+- **Performance otimizada** com índices de banco e lazy loading
+- **Visualizações avançadas** com mapas interativos e gráficos estatísticos
+- **UX/UI moderna** com design responsivo e componentes reutilizáveis
+- **Tratamento de erros robusto** em backend e frontend
 - **Testabilidade** com alta cobertura de testes
-- **Documentação profissional** para facilitar manutenção
+- **Sistema de seeding inteligente** com dados realistas brasileiros
+- **Documentação profissional** completa e atualizada
 - **DevOps ready** com Docker e docker-compose
+- **TypeScript end-to-end** para type safety completa
 
 ## 👨‍💻 Autor
 

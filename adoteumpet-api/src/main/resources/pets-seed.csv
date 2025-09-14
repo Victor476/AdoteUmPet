@@ -1,16 +1,61 @@
-name,species,breed,age_years,shelter_city,shelter_lat,shelter_lng,status
-Buddy,DOG,Golden Retriever,3,São Paulo,-23.5505,-46.6333,AVAILABLE
-Mimi,CAT,Siamês,2,Rio de Janeiro,-22.9068,-43.1729,AVAILABLE
-Rex,DOG,Pastor Alemão,5,Belo Horizonte,-19.9191,-43.9386,ADOPTED
-Luna,CAT,,1,Porto Alegre,-30.0346,-51.2177,AVAILABLE
-Max,DOG,Labrador,4,Salvador,-12.9714,-38.5014,AVAILABLE
-Nala,CAT,Persa,3,Brasília,-15.8267,-47.9218,ADOPTED
-Thor,DOG,Rottweiler,6,Curitiba,-25.4284,-49.2733,AVAILABLE
-Bella,CAT,Angorá,2,Recife,-8.0476,-34.8770,AVAILABLE
-Charlie,DOG,Beagle,3,Fortaleza,-3.7172,-38.5433,AVAILABLE
-Whiskers,CAT,,4,Manaus,-3.1190,-60.0217,AVAILABLE
-Rocky,DOG,Bulldog,5,Belém,-1.4558,-48.5044,AVAILABLE
-Princess,CAT,Maine Coon,2,Goiânia,-16.6869,-49.2648,AVAILABLE
-Duke,DOG,Boxer,4,Guarulhos,-23.4628,-46.5333,ADOPTED
-Shadow,CAT,,3,Campinas,-22.9056,-47.0608,AVAILABLE
-Bolt,DOG,Border Collie,2,São Luís,-2.5387,-44.2825,AVAILABLE
+name,species,breed,age_years,shelter_city,shelter_lat,shelter_lng,statusname,species,breed,age_years,shelter_city,shelter_lat,shelter_lng,status
+
+Max,DOG,Labrador Retriever,3,São Paulo,-23.5505,-46.6333,AVAILABLEMax,DOG,Labrador Retriever,3,São Paulo,-23.5505,-46.6333,AVAILABLE
+
+Luna,CAT,Persian,2,Rio de Janeiro,-22.9068,-43.1729,AVAILABLELuna,CAT,Persian,2,Rio de Janeiro,-22.9068,-43.1729,AVAILABLE
+
+Thor,DOG,German Shepherd,5,Belo Horizonte,-19.9167,-43.9345,AVAILABLEThor,DOG,German Shepherd,5,Belo Horizonte,-19.9167,-43.9345,AVAILABLE
+
+Mia,CAT,Siamese,1,Salvador,-12.9714,-38.5014,AVAILABLEMia,CAT,Siamese,1,Salvador,-12.9714,-38.5014,AVAILABLE
+
+Rex,DOG,Golden Retriever,4,Fortaleza,-3.7172,-38.5433,AVAILABLERex,DOG,Golden Retriever,4,Brasília,-15.7942,-47.8822,AVAILABLE
+
+Bella,CAT,Maine Coon,3,Brasília,-15.7801,-47.9292,AVAILABLENina,CAT,Maine Coon,3,Curitiba,-25.4284,-49.2733,AVAILABLE
+
+Duke,DOG,Rottweiler,6,Curitiba,-25.4244,-49.2654,AVAILABLEZeus,DOG,Rottweiler,6,Fortaleza,-3.7172,-38.5433,ADOPTED
+
+Lola,CAT,British Shorthair,2,Recife,-8.0476,-34.8770,AVAILABLELola,DOG,Beagle,2,Manaus,-3.1190,-60.0217,AVAILABLE
+
+Bruno,DOG,Boxer,4,Porto Alegre,-30.0346,-51.2177,AVAILABLESimba,CAT,British Shorthair,4,Recife,-8.0476,-34.8770,AVAILABLE
+
+Nina,CAT,Ragdoll,5,Goiânia,-16.6869,-49.2648,AVAILABLEBella,DOG,Poodle,1,Porto Alegre,-30.0346,-51.2177,AVAILABLE
+
+Simba,DOG,Husky Siberian,3,Belém,-1.4558,-48.5044,AVAILABLETiger,CAT,Ragdoll,5,Goiânia,-16.6869,-49.2648,AVAILABLE
+
+Mimi,CAT,Scottish Fold,1,Guarulhos,-23.4543,-46.5339,AVAILABLERocky,DOG,Bulldog,3,Belém,-1.4558,-48.5044,AVAILABLE
+
+Rocky,DOG,Bulldog,7,Campinas,-22.9099,-47.0626,AVAILABLEWhiskers,CAT,Russian Blue,2,Guarulhos,-23.4627,-46.5350,AVAILABLE
+
+Nala,CAT,Russian Blue,4,São Luís,-2.5387,-44.2824,AVAILABLEBuddy,DOG,Border Collie,4,Campinas,-22.9056,-47.0608,AVAILABLE
+
+Zeus,DOG,Doberman,5,Maceió,-9.6658,-35.7350,AVAILABLEShadow,CAT,Abyssinian,1,São Luís,-2.5387,-44.2829,AVAILABLE
+
+Chloe,CAT,Bengal,2,Natal,-5.7945,-35.2110,AVAILABLEDuke,DOG,Doberman,7,Maceió,-9.6658,-35.7350,ADOPTED
+
+Toby,DOG,Beagle,3,João Pessoa,-7.1195,-34.8450,AVAILABLEPrincess,CAT,Sphynx,3,Natal,-5.7945,-35.2110,AVAILABLE
+
+Zara,CAT,Sphynx,6,Campo Grande,-20.4697,-54.6201,AVAILABLECharlie,DOG,Cocker Spaniel,2,João Pessoa,-7.1195,-34.8450,AVAILABLE
+
+Cooper,DOG,Border Collie,2,Teresina,-5.0892,-42.8019,AVAILABLESmokey,CAT,Scottish Fold,4,Aracaju,-10.9472,-37.0731,AVAILABLE
+
+Lily,CAT,Turkish Angora,4,Aracaju,-10.9472,-37.0731,AVAILABLEBruno,DOG,Boxer,5,Cuiabá,-15.6014,-56.0979,AVAILABLE
+
+Buddy,DOG,Poodle,8,Cuiabá,-15.6014,-56.0979,AVAILABLEMittens,CAT,Turkish Angora,1,Campo Grande,-20.4697,-54.6201,AVAILABLE
+
+Ruby,CAT,Abyssinian,3,Vitória,-20.2976,-40.2958,AVAILABLEToby,DOG,Shih Tzu,3,Florianópolis,-27.5954,-48.5480,AVAILABLE
+
+Oscar,DOG,Shih Tzu,1,Florianópolis,-27.5954,-48.5480,AVAILABLEFelix,CAT,Birman,6,Vitória,-20.3155,-40.3128,ADOPTED
+
+Pepper,CAT,Exotic Shorthair,5,Macapá,0.0389,-51.0664,AVAILABLECooper,DOG,Australian Shepherd,2,Mogi das Cruzes,-23.5222,-46.1881,AVAILABLE
+
+Jax,DOG,Mastiff,9,Rio Branco,-9.9754,-67.8249,AVAILABLEPatches,CAT,Exotic Shorthair,4,Sorocaba,-23.5015,-47.4526,AVAILABLE
+
+Sophie,CAT,Chartreux,2,Boa Vista,2.8235,-60.6758,AVAILABLEJake,DOG,Jack Russell Terrier,1,Ribeirão Preto,-21.1775,-47.8208,AVAILABLE
+
+Ace,DOG,Akita,4,Palmas,-10.1690,-48.3316,AVAILABLECleo,CAT,Oriental Shorthair,5,Santos,-23.9608,-46.3334,AVAILABLE
+
+Daisy,CAT,Birman,7,Porto Velho,-8.7612,-63.9004,AVAILABLEBear,DOG,Husky Siberiano,3,Londrina,-23.3045,-51.1696,AVAILABLE
+
+Hunter,DOG,Weimaraner,3,Manaus,-3.1190,-60.0217,AVAILABLEGinger,CAT,Devon Rex,2,Maringá,-23.4205,-51.9331,AVAILABLE
+
+Grace,CAT,Oriental Shorthair,1,São Paulo,-23.5505,-46.6333,ADOPTEDAce,DOG,Pit Bull,4,Joinville,-26.3044,-48.8487,AVAILABLE
