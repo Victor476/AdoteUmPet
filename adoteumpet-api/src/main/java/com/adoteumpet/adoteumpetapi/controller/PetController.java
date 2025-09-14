@@ -6,6 +6,14 @@ import com.adoteumpet.adoteumpetapi.model.Pet;
 import com.adoteumpet.adoteumpetapi.model.Species;
 import com.adoteumpet.adoteumpetapi.model.Status;
 import com.adoteumpet.adoteumpetapi.service.PetService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +30,7 @@ import java.util.UUID;
  * Controller REST para gerenciar operações relacionadas aos pets.
  * Fornece endpoints para CRUD e consultas específicas.
  */
+@Tag(name = "Pets", description = "Operações relacionadas ao gerenciamento de pets para adoção")
 @RestController
 @RequestMapping("/api/pets")
 @CrossOrigin(origins = "*")
@@ -35,6 +44,15 @@ public class PetController {
      * @param petCreateDTO os dados do pet a ser criado
      * @return o pet criado com status 201
      */
+    @Operation(summary = "Criar um novo pet", 
+               description = "Cadastra um novo pet no sistema para disponibilizar para adoção")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Pet criado com sucesso",
+                    content = @Content(mediaType = "application/json", 
+                                     schema = @Schema(implementation = Pet.class))),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+        @ApiResponse(responseCode = "422", description = "Erro de validação nos campos")
+    })
     @PostMapping
     public ResponseEntity<Pet> createPet(@Valid @RequestBody PetCreateDTO petCreateDTO) {
         Pet pet = convertToEntity(petCreateDTO);
@@ -73,14 +91,21 @@ public class PetController {
      * @param pageable configuração de paginação e ordenação (padrão: page=0, size=10, sort=name,asc)
      * @return resposta paginada com os pets encontrados
      */
+    @Operation(summary = "Buscar pets", 
+               description = "Busca pets com filtros opcionais, paginação e ordenação")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de pets retornada com sucesso",
+                    content = @Content(mediaType = "application/json", 
+                                     schema = @Schema(implementation = PagedResponse.class)))
+    })
     @GetMapping
     public ResponseEntity<PagedResponse<Pet>> getPets(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Species species,
-            @RequestParam(required = false) String breed,
-            @RequestParam(required = false) String shelterCity,
-            @RequestParam(required = false) Status status,
-            @PageableDefault(size = 10, sort = "name") Pageable pageable) {
+            @Parameter(description = "Filtro por nome do pet") @RequestParam(required = false) String name,
+            @Parameter(description = "Filtro por espécie (CAT ou DOG)") @RequestParam(required = false) Species species,
+            @Parameter(description = "Filtro por raça do pet") @RequestParam(required = false) String breed,
+            @Parameter(description = "Filtro por cidade do abrigo") @RequestParam(required = false) String shelterCity,
+            @Parameter(description = "Filtro por status (AVAILABLE ou ADOPTED)") @RequestParam(required = false) Status status,
+            @Parameter(hidden = true) @PageableDefault(size = 10, sort = "name") Pageable pageable) {
         
         PagedResponse<Pet> pets = petService.findPets(name, species, breed, shelterCity, status, pageable);
         return ResponseEntity.ok(pets);
@@ -91,8 +116,16 @@ public class PetController {
      * @param id o ID do pet
      * @return o pet encontrado ou 404 se não existir
      */
+    @Operation(summary = "Buscar pet por ID", 
+               description = "Retorna um pet específico pelo seu identificador único")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Pet encontrado",
+                    content = @Content(mediaType = "application/json", 
+                                     schema = @Schema(implementation = Pet.class))),
+        @ApiResponse(responseCode = "404", description = "Pet não encontrado")
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<Pet> getPetById(@PathVariable UUID id) {
+    public ResponseEntity<Pet> getPetById(@Parameter(description = "ID único do pet") @PathVariable UUID id) {
         Pet pet = petService.getPetById(id);
         return ResponseEntity.ok(pet);
     }

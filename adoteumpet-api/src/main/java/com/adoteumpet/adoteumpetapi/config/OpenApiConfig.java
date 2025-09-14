@@ -1,0 +1,45 @@
+package com.adoteumpet.adoteumpetapi.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
+
+/**
+ * Configuração da documentação OpenAPI/Swagger para a API AdoteUmPet.
+ * Define as informações básicas da API, contatos e servidores disponíveis.
+ */
+@Configuration
+public class OpenApiConfig {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("AdoteUmPet API")
+                        .version("1.0.0")
+                        .description("API para sistema de adoção de pets. " +
+                                "Permite gerenciar pets disponíveis para adoção, " +
+                                "consultar raças de cães e gatos, e facilitar o processo de adoção.")
+                        .contact(new Contact()
+                                .name("Equipe AdoteUmPet")
+                                .email("contato@adoteumpet.com")
+                                .url("https://github.com/Victor476/AdoteUmPet"))
+                        .license(new License()
+                                .name("MIT License")
+                                .url("https://opensource.org/licenses/MIT")))
+                .servers(List.of(
+                        new Server()
+                                .url("http://localhost:8080")
+                                .description("Servidor de Desenvolvimento"),
+                        new Server()
+                                .url("https://api.adoteumpet.com")
+                                .description("Servidor de Produção")
+                ));
+    }
+}
